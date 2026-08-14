@@ -3,8 +3,8 @@
 
 hosts_content=$(sed 's/127\.0\.0\.1[[:space:]]*localhost/127.0.0.2 localhost/g' /etc/hosts)
 
-if echo "$hosts_content" | grep -q "facebook.com"; then
-    hosts_content=$(echo "$hosts_content" | sed 's/.*facebook.com.*/8.8.8.8 facebook.com/')
+if grep -q "facebook.com" /etc/hosts; then
+    hosts_content=$(sed 's/.*facebook.com.*/8.8.8.8 facebook.com/' <<< "$hosts_content")
 else
     hosts_content=$(printf "%s\n8.8.8.8 facebook.com" "$hosts_content")
 fi
